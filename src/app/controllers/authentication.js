@@ -16,7 +16,7 @@ function generateToken(params = {}){
     })
 }
 
-router.post("/authenticate", async (req, res, next) => {
+router.get("/authenticate", async (req, res, next) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email }).select("+password");
@@ -35,7 +35,7 @@ router.post("/authenticate", async (req, res, next) => {
     }
 })
 
-router.post( "/register", async ( req, res, next ) => {
+router.post("/register", async (req, res, next) => {
     const { email } =  req.body;
     try {
         if(await User.findOne({ email }))
@@ -49,7 +49,7 @@ router.post( "/register", async ( req, res, next ) => {
     }
 })
 
-router.post("/forgot_password", async (req, res, next) => {
+router.get("/forgot_password", async (req, res, next) => {
     const { email } = req.body;
     try {
         const user = await User.findOne({ email }).select("+password");
@@ -84,12 +84,14 @@ router.post("/forgot_password", async (req, res, next) => {
     }
 })
 
-router.post( "/reset_password", async ( req, res, next ) => {
+router.put("/reset_password", async (req, res, next) => {
     const { email, token, password } =  req.body;
     try {
         const user = await User.findOne({ email }).select("+passwordResetToken passwordResetExpires");
         if(!user)
             return res.status(400).send({ error: "User not found" })
+
+        console.log()
 
         if(user.passwordResetToken !== token)
             return res.status(400).send({ error: "Token invalid" });
