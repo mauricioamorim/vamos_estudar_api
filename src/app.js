@@ -8,9 +8,7 @@ const app               = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-//require("./app/controllers/_index")(app);
-require("./app/controllers/authentication")(app);
-require("./app/controllers/projects")(app);
+require("./app/controllers/_index")(app);
 
 app.get("/", (req, res, next) => {
     res.status(200).send({
