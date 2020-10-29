@@ -15,7 +15,7 @@ const taskSchema = new mongoose.Schema({
         required: true
     },
     assingedTo:{
-        type: mongoose.Schema.type.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
     completed:{
@@ -33,3 +33,7 @@ const taskSchema = new mongoose.Schema({
         default: Date.now
     }
 })
+
+const Task = mongoose.model("Task", taskSchema);
+
+module.exports = Task;

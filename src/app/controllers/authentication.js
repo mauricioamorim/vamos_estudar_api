@@ -8,7 +8,7 @@ const authConfig    = require("../../config/jsonwebtoken");
 
 const nodemailer    = require("../../modules/nodemailer");
 
-const User          = require("../model/user");
+const User          = require("../models/user");
 
 function generateToken(params = {}){
     return token = jwt.sign( params, authConfig.secret, {
